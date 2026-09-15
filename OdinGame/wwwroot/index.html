@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Odin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- LANDING -->
+<div class="screen" id="landingScreen">
+  <div class="landing-card">
+    <h1>Odin</h1>
+    <p class="sub">بازی کارتی نوبتی. یک روم بساز یا با کد وارد روم دوستت شو.</p>
+    <div class="field-group">
+      <input type="text" id="playerName" placeholder="نام شما" maxlength="16" />
+    </div>
+    <button class="primary-btn" id="createBtn">ساخت روم جدید</button>
+    <div class="divider">یا</div>
+    <div class="join-row">
+      <input type="text" id="roomCodeInput" placeholder="کد روم" maxlength="5" />
+      <button class="ghost-btn" id="joinBtn" style="width:auto;padding:12px 20px;">پیوستن</button>
+    </div>
+    <div class="error-text" id="landingError"></div>
+  </div>
+</div>
+
+<!-- LOBBY -->
+<div class="screen hidden" id="lobbyScreen">
+  <div class="lobby-card">
+    <div class="room-code-row">
+      <div>
+        <div class="label">کد روم</div>
+        <div class="code" id="lobbyRoomCode">-----</div>
+      </div>
+      <button class="copy-btn" id="copyCodeBtn">کپی کد</button>
+    </div>
+    <div id="lobbyPlayerList"></div>
+    <div class="lobby-hint" id="lobbyHint">حداقل ۳ بازیکن لازم است. وقتی همه آماده شدند، بازی شروع می‌شود.</div>
+    <button class="primary-btn" id="readyBtn" style="margin-top:20px;">آماده‌ام</button>
+  </div>
+</div>
+
+<!-- GAME -->
+<div class="screen hidden" id="gameScreen">
+  <div class="table-top" id="opponentsRow"></div>
+  <div class="table-center">
+    <div class="turn-banner" id="turnBanner"></div>
+    <div class="center-cards" id="centerCards"><div class="center-empty">هنوز کارتی بازی نشده</div></div>
+    <div class="value-badge" id="centerValue"></div>
+  </div>
+  <div class="hand-area">
+    <div class="action-error" id="actionError"></div>
+    <div class="hand-fan" id="handFan"></div>
+    <div class="action-bar">
+      <button class="pass-btn" id="passBtn">پاس</button>
+      <button class="play-btn" id="playBtn" disabled>بازی کردن</button>
+    </div>
+  </div>
+</div>
+
+<!-- CARD CHOICE MODAL -->
+<div class="overlay hidden" id="choiceOverlay">
+  <div class="modal">
+    <h2>یک کارت انتخاب کن</h2>
+    <p>یکی از کارت‌های ترکیب قبلی را به دست خودت اضافه کن</p>
+    <div class="choice-cards" id="choiceCards"></div>
+  </div>
+</div>
+
+<!-- ROUND END MODAL -->
+<div class="overlay hidden" id="roundOverlay">
+  <div class="modal">
+    <h2>پایان دور</h2>
+    <div id="roundScores"></div>
+    <p style="margin-top:16px;">دور بعدی به‌زودی شروع می‌شود...</p>
+  </div>
+</div>
+
+<!-- GAME OVER MODAL -->
+<div class="overlay hidden" id="gameOverOverlay">
+  <div class="modal">
+    <h2 id="winnerTitle"></h2>
+    <div id="finalScores"></div>
+    <button class="primary-btn" style="margin-top:20px;" onclick="location.reload()">بازی جدید</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
