@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OdinGame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38b479db4cad27dd2ffac7e36a4926302829742e")]
 [assembly: System.Reflection.AssemblyProductAttribute("OdinGame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OdinGame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
