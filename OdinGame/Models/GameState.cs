@@ -10,6 +10,7 @@ namespace OdinGame.Models
         public bool AwaitingCardChoice { get; set; } = false;
         public List<Card> CardsAwaitingChoice { get; set; } = new();
         public string? PlayerAwaitingChoiceId { get; set; }
+        public int LastBurnedComboSize { get; set; } = 0;
 
         public void StartNewGame()
         {
@@ -71,8 +72,14 @@ namespace OdinGame.Models
 
             if (CurrentCombination == null)
             {
-                // اولین بازی راند: باید دقیقاً 1 کارت باشه
-                return cardsToPlay.Count == 1;
+                int count = cardsToPlay.Count;
+                int maxCount = LastBurnedComboSize + 1;
+
+                if (count < 1 || count > maxCount) return false;
+                if (count == 1) return true;
+
+                // برای بیش از ۱ کارت در شروع، باید هم‌عدد باشند
+                return cardsToPlay.All(c => c.Number == cardsToPlay[0].Number);
             }
 
             int prevCount = CurrentCombination.Cards.Count;
@@ -138,7 +145,11 @@ namespace OdinGame.Models
         public PlayOutcome FinalizeTurn(Player player)
         {
             if (player.Hand.Count == 0)
+            {
+                CurrentCombination = null;
+                LastBurnedComboSize = 0;
                 return new PlayOutcome { Success = true, PlayerEmptiedHand = true, RoundEnded = true };
+            }
 
             AdvanceTurn();
             return new PlayOutcome { Success = true };
@@ -175,7 +186,13 @@ namespace OdinGame.Models
             ConsecutivePasses++;
 
             if (ConsecutivePasses >= Players.Count - 1)
+            {
+                LastBurnedComboSize = CurrentCombination.Cards.Count;
+                CurrentCombination = null;
+                ConsecutivePasses = 0;
+                foreach (var p in Players) p.HasPassed = false;
                 return new PlayOutcome { Success = true, RoundEnded = true };
+            }
 
             AdvanceTurn();
             return new PlayOutcome { Success = true };
